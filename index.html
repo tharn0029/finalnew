@@ -234,14 +234,13 @@
                 <h2>Select Models</h2>
                 <div class="dropdown-container">
                     <div class="dropdown-group">
-                        <label>First Model:</label>
+                        <label>Questions model:</label>
                         <select class="model-dropdown" id="firstModel" onchange="updateModelDisplay()">
                             <option value="ChatGPT">ChatGPT</option>
-                            <option value="Meta AI">Meta AI</option>
                         </select>
                     </div>
                     <div class="dropdown-group">
-                        <label>Second Model:</label>
+                        <label>Search model:</label>
                         <select class="model-dropdown" id="secondModel" onchange="updateModelDisplay()">
                             <option value="Perplexity">Perplexity</option>
                             <option value="ChatGPT">ChatGPT</option>
@@ -254,7 +253,7 @@
             </div>
 
             <div class="section-container pattern-container">
-                <h2>Pattern Extractor</h2>
+                <h2>Searched Questions</h2>
                 <textarea class="pattern-input" id="inputText" placeholder='Paste your text here with format like: \"Your text\",  or \"Your text\n]\n\n\n'></textarea>
                 <div class="button-row">
                     <button class="extract-btn" onclick="extractText()">Extract Text</button>
