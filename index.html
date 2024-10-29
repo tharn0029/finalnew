@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .section-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .question-input {
+            width: 100%;
+            min-height: 40px;
+            margin: 10px 0;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        .button-row {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+        }
+        .submit-btn:hover { background-color: #45a049; }
+        .delete-btn:hover { background-color: #da190b; }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .number-selector {
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .selected-number {
+            font-size: 24px;
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="section-container">
+        <h2>Please Enter Your Question</h2>
+        <textarea class="question-input" id="questionInput" placeholder="Enter your question here..."></textarea>
+        
+        <select class="number-selector" id="numberSelector">
+            <option value="">Select a number</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        
+        <div class="button-row">
+            <button class="submit-btn" onclick="submitQuestion()">Submit</button>
+            <button class="delete-btn" onclick="deleteQuestion()">Delete</button>
+        </div>
+        <div class="result" id="questionResult"></div>
+        <div class="selected-number" id="selectedNumber"></div>
+    </div>
+
+    <script>
+        function submitQuestion() {
+            const input = document.getElementById('questionInput').value.trim();
+            if (input) {
+                document.getElementById('questionResult').textContent = input;
+            }
+        }
+
+        function deleteQuestion() {
+            document.getElementById('questionInput').value = '';
+            document.getElementById('questionResult').textContent = '';
+            document.getElementById('selectedNumber').textContent = '';
+            document.getElementById('numberSelector').value = '';
+        }
+
+        // Add enter key listener
+        document.getElementById('questionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                submitQuestion();
+            }
+        });
+
+        // Add number selector listener
+        document.getElementById('numberSelector').addEventListener('change', function() {
+            const selectedValue = this.value;
+            document.getElementById('selectedNumber').textContent = selectedValue ? selectedValue : '';
+        });
+    </script>
+</body>
+</html>
