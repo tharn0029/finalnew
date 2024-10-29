@@ -219,16 +219,16 @@
                 </div>
             </div>
 
-            <div class="section-container pattern-container">
-                <h2>Pattern Extractor</h2>
-                <textarea class="pattern-input" id="inputText" placeholder='Paste your text here with format like: \"Your text\",  or \"Your text\n]\n\n\n'></textarea>
-                <div class="button-row">
-                    <button class="extract-btn" onclick="extractText()">Extract Text</button>
-                    <button class="clear-btn" onclick="clearPatternInput()">Clear Input</button>
-                </div>
-                <div id="output"></div>
-            </div>
-        </div>
+<div class="section-container pattern-container">
+    <h2>Pattern Extractor</h2>
+    <textarea class="pattern-input" id="inputText" placeholder='Paste your text here with format like: \"Your text\",  or \"Your text\n]\n\n\n'></textarea>
+    <div class="button-row">
+        <button class="extract-btn" onclick="extractText()">Extract Text</button>
+        <button class="clear-btn" onclick="clearPatternInput()">Clear Input</button>
+        <button class="delete-btn" onclick="deleteAll()">Delete All</button>
+    </div>
+    <div id="output"></div>
+</div>
 
         <div class="right-panel">
             <div class="section-container">
@@ -291,11 +291,15 @@
         }
 
         // Pattern Extractor Scripts
-        function clearPatternInput() {
-            document.getElementById('inputText').value = '';
-            document.getElementById('output').innerHTML = '';
-        }
-
+function clearPatternInput() {
+    // Only clear the input text
+    document.getElementById('inputText').value = '';
+}
+function deleteAll() {
+    // Clear both input and output
+    document.getElementById('inputText').value = '';
+    document.getElementById('output').innerHTML = '';
+}
         function extractText() {
             const text = document.getElementById('inputText').value;
             const outputDiv = document.getElementById('output');
