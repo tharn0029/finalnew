@@ -33,10 +33,10 @@
         .question-input {
             width: 100%;
             min-height: 40px;
-            margin: 10px 0;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
             font-family: monospace;
             font-size: 14px;
             box-sizing: border-box;
@@ -129,6 +129,11 @@
             gap: 2px;
             margin-bottom: 10px;
         }
+        .tab-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .tab {
             padding: 10px 20px;
             background-color: #e0e0e0;
@@ -140,6 +145,18 @@
             background-color: #fff;
             border: 1px solid #ddd;
             border-bottom: none;
+        }
+        .tab-delete-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .tab-delete-btn:hover {
+            background-color: #da190b;
         }
         .tab-content {
             display: none;
@@ -252,14 +269,20 @@
             <div class="section-container">
                 <h2>Final Report</h2>
                 <div class="tabs">
-                    <button class="tab active" onclick="switchTab(1)">Tab 1</button>
-                    <button class="tab" onclick="switchTab(2)">Tab 2</button>
+                    <div class="tab-header">
+                        <button class="tab active" onclick="switchTab(1)">Tab 1</button>
+                        <button class="tab-delete-btn" onclick="clearTab(1)">Delete</button>
+                    </div>
+                    <div class="tab-header">
+                        <button class="tab" onclick="switchTab(2)">Tab 2</button>
+                        <button class="tab-delete-btn" onclick="clearTab(2)">Delete</button>
+                    </div>
                 </div>
                 <div class="tab-content active" id="tab1">
-                    <textarea placeholder="Content for tab 1..."></textarea>
+                    <textarea placeholder="Content for tab 1..." id="tab1Text"></textarea>
                 </div>
                 <div class="tab-content" id="tab2">
-                    <textarea placeholder="Content for tab 2..."></textarea>
+                    <textarea placeholder="Content for tab 2..." id="tab2Text"></textarea>
                 </div>
             </div>
         </div>
@@ -269,13 +292,8 @@
         // Question Input Scripts
         function submitQuestion() {
             const input = document.getElementById('questionInput').value.trim();
-            const number = document.getElementById('numberInput').value;
             if (input) {
-                let result = input;
-                if (number) {
-                    result += `\n${number} questions will be prepared`;
-                }
-                document.getElementById('questionResult').textContent = result;
+                document.getElementById('questionResult').textContent = input;
             }
         }
 
@@ -381,14 +399,32 @@
             });
         }
 
-        // Tab switching functionality
+        // Tab switching and content management
         function switchTab(tabNumber) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            document.querySelector(`.tab:nth-child(${tabNumber})`).classList.add('active');
+            document.querySelector(`.tab-header:nth-child(${tabNumber}) .tab`).classList.add('active');
             document.getElementById(`tab${tabNumber}`).classList.add('active');
+
+            // Process line breaks in the active tab's textarea
+            const textarea = document.getElementById(`tab${tabNumber}Text`);
+            textarea.value = textarea.value.replace(/\\n/g, '\n');
         }
+
+        // Clear tab content
+        function clearTab(tabNumber) {
+            document.getElementById(`tab${tabNumber}Text`).value = '';
+        }
+
+        // Add input event listeners for both textareas to handle line breaks in real-time
+        document.getElementById('tab1Text').addEventListener('input', function() {
+            this.value = this.value.replace(/\\n/g, '\n');
+        });
+
+        document.getElementById('tab2Text').addEventListener('input', function() {
+            this.value = this.value.replace(/\\n/g, '\n');
+        });
     </script>
 </body>
 </html>
